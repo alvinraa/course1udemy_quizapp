@@ -17,19 +17,30 @@ class MyApp extends StatefulWidget {
 
 class MyAppState extends State<MyApp> {
   int _questionIndex = 0;
-  List<String> questions = [
-    'a',
-    'b',
-    'c',
+  final List<Map<String, Object>> questions = const [
+    {
+      'questionText': 'Apa warna favoritmu?',
+      'answer': ['Merah', 'Kuning', 'Hijau', 'Hitam'],
+    },
+    {
+      'questionText': 'Apa hewan favoritmu?',
+      'answer': ['Kucing', 'Anjing', 'Kelinci', 'Singa'],
+    },
+    {
+      'questionText': 'Siapa presiden favoritmu?',
+      'answer': ['person1', 'person2', 'person3', 'person4'],
+    }
   ];
 
   void _answerQuestion() {
     setState(() {
       _questionIndex += 1;
     });
-
-    print('answer choosen');
-    print(_questionIndex);
+    if (_questionIndex < questions.length) {
+      print('more question');
+    } else {
+      print('no more question');
+    }
   }
 
   @override
@@ -40,32 +51,23 @@ class MyAppState extends State<MyApp> {
           title: const Text('here Appbar!'),
         ),
         body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              Question(
-                questions[_questionIndex],
-              ),
-              const SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  Column(
-                    children: <Widget>[
-                      Answer(),
-                      Answer(),
-                    ],
-                  ),
-                  Column(
-                    children: <Widget>[
-                      Answer(),
-                      Answer(),
-                    ],
-                  )
-                ],
-              ),
-            ],
-          ),
+          child: _questionIndex < questions.length
+              ? Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    Question(
+                      questions[_questionIndex]['questionText'],
+                    ),
+                    const SizedBox(height: 20),
+
+                    /// ... untuk mengambil isi dari list menjadi list itu sendiri?
+                    ...(questions[_questionIndex]['answer'] as List<String>)
+                        .map((answer) {
+                      return Answer(_answerQuestion, answer);
+                    }).toList(),
+                  ],
+                )
+              : Text('Finish'),
         ),
       ),
     );
