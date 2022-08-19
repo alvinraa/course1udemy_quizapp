@@ -1,7 +1,6 @@
+import 'package:course1_quizapp/quiz.dart';
+import 'package:course1_quizapp/result.dart';
 import 'package:flutter/material.dart';
-
-import './questions.dart';
-import './answer.dart';
 
 void main() {
   runApp(MyApp());
@@ -17,26 +16,114 @@ class MyApp extends StatefulWidget {
 
 class MyAppState extends State<MyApp> {
   int _questionIndex = 0;
-  final List<Map<String, Object>> questions = const [
+  int _totalScore = 0;
+
+  final List<Map<String, Object>> _questions = [
     {
-      'questionText': 'Apa warna favoritmu?',
-      'answer': ['Merah', 'Kuning', 'Hijau', 'Hitam'],
+      'questionText': 'Hitunglah hasil dari -12 x (18 + (-27)) adalah....',
+      'answer': [
+        {'choice': 'A. ', 'text': '-216', 'score': 0},
+        {'choice': 'B. ', 'text': '108', 'score': 1},
+        {'choice': 'C. ', 'text': '216', 'score': 0},
+        {'choice': 'D. ', 'text': '-108', 'score': 0},
+      ],
     },
     {
-      'questionText': 'Apa hewan favoritmu?',
-      'answer': ['Kucing', 'Anjing', 'Kelinci', 'Singa'],
+      'questionText': 'Hitunglah hasil dari -12 x (18 + (-27)) adalah....',
+      'answer': [
+        {'choice': 'A. ', 'text': '-216', 'score': 0},
+        {'choice': 'B. ', 'text': '108', 'score': 1},
+        {'choice': 'C. ', 'text': '216', 'score': 0},
+        {'choice': 'D. ', 'text': '-108', 'score': 0},
+      ],
     },
     {
-      'questionText': 'Siapa presiden favoritmu?',
-      'answer': ['person1', 'person2', 'person3', 'person4'],
-    }
+      'questionText': 'Hitunglah hasil dari -12 x (18 + (-27)) adalah....',
+      'answer': [
+        {'choice': 'A. ', 'text': '-216', 'score': 0},
+        {'choice': 'B. ', 'text': '108', 'score': 1},
+        {'choice': 'C. ', 'text': '216', 'score': 0},
+        {'choice': 'D. ', 'text': '-108', 'score': 0},
+      ],
+    },
+    {
+      'questionText': 'Hitunglah hasil dari -12 x (18 + (-27)) adalah....',
+      'answer': [
+        {'choice': 'A. ', 'text': '-216', 'score': 0},
+        {'choice': 'B. ', 'text': '108', 'score': 1},
+        {'choice': 'C. ', 'text': '216', 'score': 0},
+        {'choice': 'D. ', 'text': '-108', 'score': 0},
+      ],
+    },
+    {
+      'questionText': 'Hitunglah hasil dari -12 x (18 + (-27)) adalah....',
+      'answer': [
+        {'choice': 'A. ', 'text': '-216', 'score': 0},
+        {'choice': 'B. ', 'text': '108', 'score': 1},
+        {'choice': 'C. ', 'text': '216', 'score': 0},
+        {'choice': 'D. ', 'text': '-108', 'score': 0},
+      ],
+    },
+    {
+      'questionText': 'Hitunglah hasil dari -12 x (18 + (-27)) adalah....',
+      'answer': [
+        {'choice': 'A. ', 'text': '-216', 'score': 0},
+        {'choice': 'B. ', 'text': '108', 'score': 1},
+        {'choice': 'C. ', 'text': '216', 'score': 0},
+        {'choice': 'D. ', 'text': '-108', 'score': 0},
+      ],
+    },
+    {
+      'questionText': 'Hitunglah hasil dari -12 x (18 + (-27)) adalah....',
+      'answer': [
+        {'choice': 'A. ', 'text': '-216', 'score': 0},
+        {'choice': 'B. ', 'text': '108', 'score': 1},
+        {'choice': 'C. ', 'text': '216', 'score': 0},
+        {'choice': 'D. ', 'text': '-108', 'score': 0},
+      ],
+    },
+    {
+      'questionText': 'Hitunglah hasil dari -12 x (18 + (-27)) adalah....',
+      'answer': [
+        {'choice': 'A. ', 'text': '-216', 'score': 0},
+        {'choice': 'B. ', 'text': '108', 'score': 1},
+        {'choice': 'C. ', 'text': '216', 'score': 0},
+        {'choice': 'D. ', 'text': '-108', 'score': 0},
+      ],
+    },
+    {
+      'questionText': 'Hitunglah hasil dari -12 x (18 + (-27)) adalah....',
+      'answer': [
+        {'choice': 'A. ', 'text': '-216', 'score': 0},
+        {'choice': 'B. ', 'text': '108', 'score': 1},
+        {'choice': 'C. ', 'text': '216', 'score': 0},
+        {'choice': 'D. ', 'text': '-108', 'score': 0},
+      ],
+    },
+    {
+      'questionText': 'Hitunglah hasil dari -12 x (18 + (-27)) adalah....',
+      'answer': [
+        {'choice': 'A. ', 'text': '-216', 'score': 0},
+        {'choice': 'B. ', 'text': '108', 'score': 1},
+        {'choice': 'C. ', 'text': '216', 'score': 0},
+        {'choice': 'D. ', 'text': '-108', 'score': 0},
+      ],
+    },
   ];
 
-  void _answerQuestion() {
+  void _resetQuiz() {
+    setState(() {
+      _questionIndex = 0;
+      _totalScore = 0;
+    });
+  }
+
+  void _answerQuestion(int score) {
+    _totalScore = _totalScore + score;
     setState(() {
       _questionIndex += 1;
     });
-    if (_questionIndex < questions.length) {
+    if (_questionIndex < _questions.length) {
       print('more question');
     } else {
       print('no more question');
@@ -48,26 +135,16 @@ class MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('here Appbar!'),
+          title: const Text('Quis Matematika Dasar'),
         ),
         body: Center(
-          child: _questionIndex < questions.length
-              ? Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    Question(
-                      questions[_questionIndex]['questionText'],
-                    ),
-                    const SizedBox(height: 20),
-
-                    /// ... untuk mengambil isi dari list menjadi list itu sendiri?
-                    ...(questions[_questionIndex]['answer'] as List<String>)
-                        .map((answer) {
-                      return Answer(_answerQuestion, answer);
-                    }).toList(),
-                  ],
+          child: _questionIndex < _questions.length
+              ? Quiz(
+                  answerQuestion: _answerQuestion,
+                  questions: _questions,
+                  questionIndex: _questionIndex,
                 )
-              : Text('Finish'),
+              : Result(resultScore: _totalScore, resetWidget: _resetQuiz),
         ),
       ),
     );
